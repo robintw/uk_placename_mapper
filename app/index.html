@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UK Placename Mapper</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script type="module" src="main.js"></script>
+    <script src="TileLayer.Grayscale.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="sidebar">
+    <h1>UK Placename Mapper</h1>
+    <p>This tool lets you visualise UK place names that match certain search terms on a map. 
+        Search terms can be plain text, or you can use regular expressions. For example:
+        <ul>
+            <li><code>sea</code> - any place whose name contains <code>sea</code></li>
+            <li><code>^newton$</code> - any place whose name is exactly <code>newton</code></li>
+            <li><code>burgh$</code> - any place whose name ends with <code>burgh</code></li>
+            <li><code>^south</code> - any place whose name starts with <code>south</code></li>
+        </ul>
+        
+        For more information on regular expressions, see <a href="https://www.regular-expressions.info/quickstart.html">here</a>
+    </p>
+    <div id="input-container">
+            <button id="add-row">Add row</button>
+    </div>
+
+    <div class="sidebar-footer">
+    <button id="share">Copy link to these settings</button> <br>
+    Created by <a href="https://www.rtwilson.com">Robin Wilson</a> - I do freelance work!<br>
+    Data from <a href="https://www.ordnancesurvey.co.uk/products/os-open-names">OS Open Names</a> © Crown copyright and database right 2024.
+    <a href="https://www.buymeacoffee.com/rtwilson" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 180px !important; padding: 10px;" ></a>
+    </div>
+</div>
+
+</div>
+
+<div id="map">
+    <!-- Leaflet map will go here -->
+</div>
+
+</body>
+</html>

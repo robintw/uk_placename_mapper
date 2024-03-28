@@ -1,0 +1,253 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Modern font */
+}
+
+#map {
+    height: 100%;
+    width: 66.66%;
+    /* 2/3 of the screen */
+    position: fixed;
+    right: 0;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    /* Add shadow for depth */
+}
+
+#sidebar {
+    width: 33.33%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    /* display: flex; */
+    /* Use flexbox */
+    /* flex-direction: column; */
+    /* Stack children vertically */
+    overflow-y: auto
+}
+
+#input-container {
+    flex: 1;
+    /* Allows this container to expand and fill available space */
+    overflow-y: auto;
+    /* Allows scrolling within the container if content overflows */
+}
+
+.sidebar-footer {
+    text-align: center;
+    /* Center the footer text */
+    margin-top: 20px;
+    /* Space from the last row or the input-container */
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+    /* A line above the footer text for visual separation */
+    font-size: 12px;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    /* Align items vertically */
+    margin-bottom: 20px;
+    /* Increase spacing */
+}
+
+.input-row input[type="text"],
+.input-row input[type="color"] {
+    height: 36px;
+    /* Increase input height for better touch */
+    border: 1px solid #ccc;
+    /* Add border */
+    border-radius: 5px;
+    /* Rounded corners */
+    padding: 0 10px;
+    /* Text padding */
+}
+
+.input-row input[type="text"] {
+    flex-grow: 1;
+    /* Take available space */
+    margin-right: 8px;
+    /* Adjusted spacing */
+}
+
+.input-row input[type="color"] {
+    width: 40px;
+    /* Fixed width for color input */
+    padding: 0;
+    /* Remove padding */
+    cursor: pointer;
+}
+
+.input-row button {
+    border: none;
+    height: 36px;
+    padding: 0 12px;
+    /* Adjusted padding for better text fit */
+    margin-left: 5px;
+    /* Space between buttons and inputs */
+    border-radius: 18px;
+    /* Rounded corners for rectangular shape */
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    /* Adjusted font size */
+    color: white;
+    /* Text color */
+    transition: background-color 0.3s ease;
+    /* Smooth background color transition */
+}
+
+.input-row button.remove-row {
+    width: 36px;
+    /* Fixed width for circle */
+    font-size: 20px;
+    background-color: #ff4d4f;
+    /* Bigger 'X' */
+}
+
+.input-row button.update-row {
+    padding: 0 15px;
+    background-color: #4CAF50;
+    /* More padding for longer text */
+    /* Keep the font-size smaller for the text to fit */
+}
+
+button#add-row {
+    background-color: #007BFF;
+    /* Bootstrap primary blue */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    /* Rounded corners */
+    margin-top: 20px;
+    /* Space from the last row */
+    width: 100%;
+    /* Full-width button */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Button shadow */
+}
+
+button#share {
+    background-color: #0f7151;
+    /* Bootstrap primary blue */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    /* Rounded corners */
+    /* Space from the last row */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Button shadow */
+}
+
+/* Adjust hover effects for all buttons */
+button:hover {
+    opacity: 0.85;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 0px;
+}
+
+ul {
+    margin-top: 0px;
+}
+
+
+/* Existing styles above... */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+    body,
+    html {
+        /* Since the map and sidebar are now stacked, ensure the body takes the full height of their combined content */
+        height: auto;
+        min-height: 100vh;
+        /* Ensures minimum height is the full viewport height */
+    }
+
+    /* Use Flexbox on the body or a main container to control the order of the sidebar and map */
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #map {
+        order: -1;
+        /* This moves the map above the sidebar regardless of HTML order */
+        height: 50vh;
+        /* Adjust the height of the map to not take the full screen */
+    }
+
+    /* Stack sidebar and map vertically on smaller screens */
+    #sidebar,
+    #map {
+        width: 100%;
+        height: auto;
+        /* Adjust height for content */
+        position: relative;
+        /* No longer fixed positioning */
+    }
+
+    #sidebar {
+        height: auto;
+        /* Allow the sidebar to fit its content */
+        padding-bottom: 20px;
+        /* Extra padding at the bottom */
+    }
+
+    #map {
+        height: 70vh;
+        /* Allocate half of the viewport height to the map */
+    }
+
+    .input-row button,
+    button#add-row {
+        padding: 15px 20px;
+        /* Larger touch targets */
+        font-size: 16px;
+        /* Larger font size for readability */
+    }
+
+    .sidebar-footer {
+        font-size: 14px;
+        /* Slightly larger font for readability */
+    }
+
+    .input-row input[type="text"],
+    .input-row input[type="color"] {
+        height: 44px;
+        /* Larger fields for touch friendliness */
+    }
+
+    /* .input-row {
+        flex-direction: column;
+        /* Stack inputs and buttons vertically */
+        margin-bottom: 30px;
+        /* Increase spacing */
+    } */
+
+    /* .input-row input[type="text"],
+    .input-row input[type="color"],
+    .input-row button {
+        width: 100%;
+        /* Full width for controls */
+        margin-right: 0;
+        /* Remove right margin */
+        margin-bottom: 10px;
+        /* Add bottom margin between controls */
+    } */
+}
