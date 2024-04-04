@@ -16,14 +16,26 @@ function createSearchLayer(pattern, color) {
     const filteredList = filterListByRegex(places, pattern);
     var l = L.layerGroup();
 
+    if (L.Browser.mobile) {
+        var radius = 4;
+    } else {
+        var radius = 2;
+    }
+
     filteredList.forEach((entry) => {
         var circle = L.circleMarker([entry[1], entry[2]], {
                 color: color,
                 fillColor: color,
-                fillOpacity: 0.5,
-                radius: 2
+                fillOpacity: 1.0,
+                radius: radius
             });
-        circle.bindTooltip(entry[0]);
+        
+        if (L.Browser.mobile) {
+            circle.bindPopup(entry[0]);
+        }
+        else {
+            circle.bindTooltip(entry[0]);
+        }
         l.addLayer(circle);
     })
 
@@ -45,6 +57,7 @@ var osm_grayscale = L.tileLayer.grayscale('https://{s}.tile.openstreetmap.org/{z
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+
 var baseMaps = {
     "OpenStreetMap": osm_grayscale,
 };
@@ -59,18 +72,18 @@ function addRow() {
             newRow.className = 'input-row';
             newRow.setAttribute('data-id', rowIdCounter); // Assign unique ID to the row
             newRow.innerHTML = `
-                <input type="checkbox" checked="true">
-                <input class="search-text" type="text" placeholder="Enter search text here">
-                <select class="dropdown">
+                <input title="Turn layer on/off" type="checkbox" checked="true">
+                <input class="search-text" type="text" placeholder="Enter search text here" enterkeyhint="done">
+                <select title="Select how the search works" class="dropdown">
                     <option value="anywhere">Anywhere</option>
                     <option value="startswith">Starts with</option>
                     <option value="endswith">Ends with</option>
                     <option value="exactly">Exactly</option>
                     <option value="regex">Regex</option>
                 </select>
-                <input type="color" value=${initialColors[rowIdCounter % initialColors.length]}>
+                <input title="Select colour" type="color" value=${initialColors[rowIdCounter % initialColors.length]}>
                 <button class="update-row">Update</button>
-                <button class="remove-row">x</button>
+                <button title="Remove row" class="remove-row">x</button>
             `;
             const textInput = newRow.querySelector('input[type="text"]');
             textInput.addEventListener('keypress', function(e) {
@@ -169,6 +182,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 var newLayer = createSearchLayer(search, colorInputValue)
                 idToLayer[rowId] = newLayer;
                 row.querySelector('input[type="checkbox"]').checked = true;
+                _paq.push(['trackSiteSearch',
+                    // Search keyword searched for
+                    search,
+                    // Search category selected in your search engine. If you do not need this, set to false
+                    dropdownInputValue,
+                    // Number of results on the Search results page. Zero indicates a 'No Result Search Keyword'. Set to false if you don't know
+                    false
+                ]);
             }
         });
     });
@@ -180,7 +201,9 @@ function saveStateToUrl() {
         const textInput = row.querySelector('input[type="text"]').value;
         const colorInput = row.querySelector('input[type="color"]').value;
         const checkbox = row.querySelector('input[type="checkbox"]').checked;
-        state.push({text: textInput, color: colorInput, checked: checkbox});
+        const matchType = row.querySelector('select').value;
+
+        state.push({text: textInput, color: colorInput, checked: checkbox, matchType: matchType});
     });
 
     const encodedState = encodeURIComponent(btoa(JSON.stringify(state)));
@@ -188,6 +211,7 @@ function saveStateToUrl() {
 }
 
 function loadStateFromUrl() {
+    console.log("Loading state")
     const hash = window.location.hash.substring(1); // Remove the '#' character
     if (!hash) return;
 
@@ -204,19 +228,13 @@ function loadStateFromUrl() {
         lastRow.querySelector('input[type="text"]').value = item.text;
         lastRow.querySelector('input[type="color"]').value = item.color;
         lastRow.querySelector('input[type="checkbox"]').checked = item.checked;
+        lastRow.querySelector('select').value = item.matchType;
     });
     updateAll();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     loadStateFromUrl(); // Load the state when the page loads
-
-    // // Example usage: Save state to URL hash when the "Add Row" button is clicked
-    // document.getElementById('add-row').addEventListener('click', () => {
-    //     saveStateToUrl();
-    // });
-
-    // Similarly, bind saveStateToUrl to other events as needed, like after updating or removing rows
 });
 
 function updateAll() {
@@ -227,7 +245,23 @@ function updateAll() {
 
 }
 
+function clearAll() {
+    document.querySelectorAll('.input-row').forEach(row => {
+        const deleteButton = row.querySelector('.remove-row');
+        deleteButton.click();
+    });
+    addRow();
+}
+
 function share() {
     saveStateToUrl();
     navigator.clipboard.writeText(window.location);
 }
+
+function loadHash(hash) {
+    window.location.href = hash;
+    // window.location.reload();
+    clearAll();
+    loadStateFromUrl();
+}
+window.loadHash = loadHash;

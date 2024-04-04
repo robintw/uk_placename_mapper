@@ -53,8 +53,12 @@ html {
     display: flex;
     align-items: center;
     /* Align items vertically */
-    margin-bottom: 20px;
     /* Increase spacing */
+    flex-wrap: wrap;
+}
+
+.input-row * {
+    padding-top: 10px;
 }
 
 .input-row input[type="text"],
@@ -67,6 +71,7 @@ html {
     /* Rounded corners */
     padding: 0 10px;
     /* Text padding */
+    margin-top: 10px;
 }
 
 .input-row input[type="text"] {
@@ -84,14 +89,21 @@ html {
     cursor: pointer;
 }
 
+.input-row select {
+    margin-top: 10px;
+}
+
 .input-row button {
     border: none;
     height: 36px;
-    padding: 0 12px;
-    /* Adjusted padding for better text fit */
+    padding: 0;
+    /* padding-left: 12px; */
     margin-left: 5px;
+    margin-top: 10px;
+    /* Adjusted padding for better text fit */
+    /* margin-left: 5px; */
     /* Space between buttons and inputs */
-    border-radius: 18px;
+    border-radius: 10px;
     /* Rounded corners for rectangular shape */
     cursor: pointer;
     display: inline-flex;
@@ -143,6 +155,7 @@ button#share {
     color: white;
     border: none;
     padding: 10px 15px;
+    margin-bottom: 5px;
     font-size: 14px;
     border-radius: 5px;
     /* Rounded corners */
@@ -174,6 +187,8 @@ select {
 input[type="checkbox"] {
     margin-right: 10px;
 }
+
+
 
 /* Existing styles above... */
 
@@ -223,40 +238,16 @@ input[type="checkbox"] {
         /* Allocate half of the viewport height to the map */
     }
 
-    .input-row button,
-    button#add-row {
-        padding: 15px 20px;
-        /* Larger touch targets */
-        font-size: 16px;
-        /* Larger font size for readability */
-    }
-
     .sidebar-footer {
         font-size: 14px;
         /* Slightly larger font for readability */
     }
 
-    .input-row input[type="text"],
+
     .input-row input[type="color"] {
-        height: 44px;
-        /* Larger fields for touch friendliness */
+        width: 10px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 10%;
     }
-
-    /* .input-row {
-        flex-direction: column;
-        /* Stack inputs and buttons vertically */
-        margin-bottom: 30px;
-        /* Increase spacing */
-    } */
-
-    /* .input-row input[type="text"],
-    .input-row input[type="color"],
-    .input-row button {
-        width: 100%;
-        /* Full width for controls */
-        margin-right: 0;
-        /* Remove right margin */
-        margin-bottom: 10px;
-        /* Add bottom margin between controls */
-    } */
 }

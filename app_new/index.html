@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>UK Placename Mapper</title>
+    <title>British Placename Mapper</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://placenames.rtwilson.com/PlacenameMapper.png" />
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
@@ -12,17 +13,45 @@
     <script type="module" src="main.js"></script>
     <script src="TileLayer.Grayscale.js"></script>
     <link rel="stylesheet" href="style.css">
+
+
+    <!-- Matomo -->
+    <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(["setDoNotTrack", true]);
+    _paq.push(["disableCookies"]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+        var u="//matomo.rtwilson.com/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+    </script>
+    <!-- End Matomo Code -->
 </head>
 <body>
 
 <div id="sidebar">
-    <h1>UK Placename Mapper</h1>
-    <p>This tool lets you visualise UK place names that match certain search terms on a map.</p>
+    <h1>British Placename Mapper</h1>
+    <p>This tool lets you visualise British place names that match certain search terms on a map.</p>
+    <details open>
+        <summary><b>Instructions and Examples</b> <small>(tap to show/hide)</small></summary>
     <p>
         Search terms can be used to match anywhere in the name, at the beginning or end, exactly,
         or using a <a href="https://www.regular-expressions.info/quickstart.html">regular expression</a>.
     </p>
-    <p>Hover over a marker on the map to see its name.</p>
+    <p>Hover (tap on mobile) over a marker on the map to see its name. Click the copy button at the bottom to
+        share your searches with others.
+    </p>
+    <p>Try these examples: <a href="javascript:loadHash('https://placenames.rtwilson.com/#W3sidGV4dCI6ImJ1cmdoIiwiY29sb3IiOiIjZTMxYTFjIiwiY2hlY2tlZCI6dHJ1ZSwibWF0Y2hUeXBlIjoiZW5kc3dpdGgifSx7InRleHQiOiJoYW1wdG9uIiwiY29sb3IiOiIjMWY3OGI0IiwiY2hlY2tlZCI6dHJ1ZSwibWF0Y2hUeXBlIjoiZW5kc3dpdGgifSx7InRleHQiOiJiYWNoIiwiY29sb3IiOiIjMzNhMDJjIiwiY2hlY2tlZCI6dHJ1ZSwibWF0Y2hUeXBlIjoiZW5kc3dpdGgifV0%3D');">various endings</a>, 
+        <a href="javascript:loadHash('https://placenames.rtwilson.com/#W3sidGV4dCI6InRoYW1lcyIsImNvbG9yIjoiI2ZmN2YwMCIsImNoZWNrZWQiOnRydWUsIm1hdGNoVHlwZSI6ImFueXdoZXJlIn0seyJ0ZXh0Ijoic2V2ZXJuIiwiY29sb3IiOiIjOTg0ZWEzIiwiY2hlY2tlZCI6dHJ1ZSwibWF0Y2hUeXBlIjoiYW55d2hlcmUifSx7InRleHQiOiJ3eWUiLCJjb2xvciI6IiNlMzFhMWMiLCJjaGVja2VkIjp0cnVlLCJtYXRjaFR5cGUiOiJhbnl3aGVyZSJ9LHsidGV4dCI6InRyZW50IiwiY29sb3IiOiIjMWY3OGI0IiwiY2hlY2tlZCI6dHJ1ZSwibWF0Y2hUeXBlIjoiYW55d2hlcmUifSx7InRleHQiOiJ0eW5lIiwiY29sb3IiOiIjMzNhMDJjIiwiY2hlY2tlZCI6dHJ1ZSwibWF0Y2hUeXBlIjoiYW55d2hlcmUifV0%3D');">river names</a>,
+        <a href="javascript:loadHash('https://placenames.rtwilson.com/#W3sidGV4dCI6Im5vcnRoIiwiY29sb3IiOiIjZmY3ZjAwIiwiY2hlY2tlZCI6dHJ1ZSwibWF0Y2hUeXBlIjoiYW55d2hlcmUifSx7InRleHQiOiJzb3V0aCIsImNvbG9yIjoiIzk4NGVhMyIsImNoZWNrZWQiOnRydWUsIm1hdGNoVHlwZSI6ImFueXdoZXJlIn1d');">north vs south</a>.
+    </p>
+    </details>
     <div id="input-container">
             <button id="add-row">Add row</button>
     </div>
@@ -30,7 +59,7 @@
     <div class="sidebar-footer">
     <button id="share">Copy link to these settings</button> <br>
     Created by <a href="https://www.rtwilson.com">Robin Wilson</a> - I do freelance work!<br>
-    Data from <a href="https://www.ordnancesurvey.co.uk/products/os-open-names">OS Open Names</a> © Crown copyright and database right 2024.
+    Data from <a href="https://www.ordnancesurvey.co.uk/products/os-open-names">OS Open Names</a> © Crown copyright and database right 2024.<br>
     <a href="https://www.buymeacoffee.com/rtwilson" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 180px !important; padding: 10px;" ></a>
     </div>
 </div>
